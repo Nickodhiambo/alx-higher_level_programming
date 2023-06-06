@@ -2,11 +2,10 @@
 
 /**
  * insert_node - Inserts a number into a sorted singly-linked list.
- * @head: A pointer the head of the linked list.
- * @number: The number to insert.
+ * @head: A pointer the beginning of the linked list.
+ * @number: Number to insert in list
  *
- * Return: If the function fails - NULL.
- * Otherwise - a pointer to the new node.
+ * Return: Pointer to new node or NULL on failure
  */
 listint_t *insert_node(listint_t **head, int number)
 {
