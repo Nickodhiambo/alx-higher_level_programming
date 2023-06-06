@@ -3,4 +3,4 @@
 """Prints numbers in decimals and in hexa"""
 
 for number in range(0, 99):
-    print("{}={}".format(number, hex(number)))
+    print("{} = {}".format(number, hex(number)))
