@@ -50,10 +50,10 @@ class Rectangle():
     def __str__(self):
         """Prints rectangle to STDOUT using #"""
         if self.width or self.height == 0:
-            print("")
+            return ("")
         rect = []
         for i in range(self.height):
             [rect.append("#") for j in range(self.width)]
-            if i != self.height:
+            if i != self.height - 1:
                 rect.append("\n")
         return ("".join(rect))
