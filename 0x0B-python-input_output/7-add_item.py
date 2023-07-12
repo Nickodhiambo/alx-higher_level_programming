@@ -8,7 +8,7 @@ if __name__ == "__main__":
         __import__('6-load_from_json_file').load_from_json_file
 
     arguments = sys.argv[1:]
-    argument_list=[]
+    argument_list = []
     for argument in arguments:
         argument_list.append(argument)
     load_from_json_file("add_item.json")
