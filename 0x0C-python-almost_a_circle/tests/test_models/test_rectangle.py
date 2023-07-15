@@ -92,3 +92,24 @@ class TestRectangleInstantiation(unittest.TestCase):
         rect = Rectangle(1, 2, 3, 4)
         rect.y = 5
         self.assertEqual(5, rect.y)
+
+class TestArea(unittest.TestCase):
+    """Area unittests"""
+    def test_small_dimensions(self):
+        r = Rectangle(1, 1)
+        self.assertEqual(1, r.area())
+
+    def test_large_dimensions(self):
+        r = Rectangle(1000000, 1000000)
+        self.assertEqual(1000000000000, r.area())
+
+    def test_changed_dimensions(self):
+        r = Rectangle(1, 2)
+        r.width = 10
+        r.height = 10
+        self.assertEqual(100, r.area())
+
+    def test_area_one_arg_passed(self):
+        r = Rectangle(1, 1)
+        with self.assertRaises(TypeError):
+            r.area(1)
