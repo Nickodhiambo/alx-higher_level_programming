@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+"""Defines a base class"""
+
+
+class Base():
+    """A base class"""
+    __nb_objects = 0
+
+    def __init__(self, id=None):
+        """Initalizes attributes"""
+        if id != None:
+            self.id = id
+        Base.__nb_objects += 1
+        self.id = Base.__nb_objects
