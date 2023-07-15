@@ -33,7 +33,6 @@ class TestRectangleInstantiation(unittest.TestCase):
         rect2 = Rectangle(4, 5, 6, 7)
         self.assertEqual(rect2.id, (rect1.id + 1))
 
-    @unittest.expectedFailure
     def test_rect_inst_five_args(self):
         self.assertEqual(10, Rectangle(6, 7, 8, 9, 10).id)
 
