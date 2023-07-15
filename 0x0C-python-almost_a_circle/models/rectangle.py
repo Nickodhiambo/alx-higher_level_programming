@@ -87,3 +87,22 @@ class Rectangle(Base):
                                                     self.y,
                                                     self.width,
                                                     self.height)
+
+    def update(self, *args):
+        if args and len(args) != 0:
+            flag = 0
+            for arg in args:
+                if flag == 0:
+                    if arg == None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+                    else:
+                        self.id = arg
+                elif flag == 1:
+                    self.width = arg
+                elif flag == 2:
+                    self.height = arg
+                elif flag == 3:
+                    self.x = arg
+                elif flag == 4:
+                    self.y = arg
+                flag += 1
