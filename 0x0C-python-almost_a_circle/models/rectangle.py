@@ -21,9 +21,9 @@ class Rectangle(Base):
     def width(self, value):
         """sets width"""
         if type(value) != int:
-            raise TypeError("Width must be an integer")
+            raise TypeError("width must be an integer")
         if value <= 0:
-            raise ValueError("Width must be > 0")
+            raise ValueError("width must be > 0")
         self.__width = value
 
     @property
@@ -35,27 +35,35 @@ class Rectangle(Base):
     def height(self, value):
         """Sets height"""
         if type(value) != int:
-            raise TypeError("Height must be an integer")
+            raise TypeError("height must be an integer")
         if value <= 0:
-            raise ValueError("Height must be > 0")
+            raise ValueError("height must be > 0")
         self.__height = value
 
     @property
     def x(self):
         """Gets x-coordinate"""
-        return __x
-    
+        return self. __x
+
     @x.setter
     def x(self, value):
         """Sets x coordinate"""
+        if type(value) != int:
+            raise TypeError("x must be an integer")
+        if value < 0:
+            raise ValueError("x must be >= 0")
         self.__x = value
 
     @property
     def y(self):
         """Gets y coordinate"""
-        return __y
-    
+        return self.__y
+
     @y.setter
     def y(self, value):
         """Sets y coordinate"""
+        if type(value) != int:
+            raise TypeError("y must be an integer")
+        if value < 0:
+            raise ValueError("y must be >= 0")
         self.__y = value
