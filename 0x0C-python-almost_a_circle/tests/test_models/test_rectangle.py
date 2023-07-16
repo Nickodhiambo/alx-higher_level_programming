@@ -513,3 +513,111 @@ class TestUpdateArgs(unittest.TestCase):
         r = Rectangle(1, 1, 1, 1, 1)
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
             r.update(98, 1, 2, "x", "y")
+
+class TestUpdateKwargs(unittest.TestCase):
+    """unittests for the kwargs parameter of rect update method"""
+    def test_one_kwarg(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(id=98)
+        self.assertEqual("[Rectangle] (98) 1/1 - 1/1", str(r))
+
+    def test_two_kwargs(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(width=2, id=98)
+        self.assertEqual("[Rectangle] (98) 1/1 - 2/1", str(r))
+
+    def test_three_kwargs(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(height=3, id=98, width=2)
+        self.assertEqual("[Rectangle] (98) 1/1 - 2/3", str(r))
+
+    def test_four_kwargs(self):
+        r = Rectangle(1, 1, 1, 1, 10)
+        r.update(id=98, x=4, width=2, height=3)
+        self.assertEqual("[Rectangle] (98) 4/1 - 2/3", str(r))
+
+    def test_five_kwargs(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(y=5, x=4, height=3, width=2, id=1)
+        self.assertEqual("[Rectangle] (1) 4/5 - 2/3", str(r))
+
+    def test_kwargs_id_none(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(id=None)
+        self.assertEqual("[Rectangle] ({}) 1/1 - 1/1".format(r.id), str(r))
+
+    def test_kwargs_id_none_more_args(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(id=None, width=2, height=7)
+        self.assertEqual("[Rectangle] ({}) 1/1 - 2/7".format(r.id), str(r))
+
+    def test_kwargs_two_instantiations(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(id=98, y=20, height=4)
+        r.update(id=89, x=10, width=6)
+        self.assertEqual("[Rectangle] (89) 10/20 - 6/4", str(r))
+
+    def test_kwargs_invalid_width_type(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r.update(width="width")
+
+    def test_kwargs_zero_width(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            r.update(width=0)
+
+    def test_kwargs_negative_width(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            r.update(width=-5)
+
+    def test_kwargs_invalid_height_type(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            r.update(height="height")
+
+    def test_kwargs_zero_height(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            r.update(height=0)
+
+    def test_kwargs_negative_height(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            r.update(height=-10)
+
+    def test_kwargs_invalid_x_type(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            r.update(x="x")
+
+    def test_kwargs_negative_x(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            r.update(x=-1)
+
+    def test_kwargs_invalid_y_type(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            r.update(y="y")
+
+    def test_kwargs_negative_y_type(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            r.update(y=-2)
+
+    def test_args_kwargs_combo(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(89, 5, height=4, x=2)
+        self.assertEqual("[Rectangle] (89) 1/1 - 5/1", str(r))
+
+    def test_kwargs_wrong_keys(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(i=10, j=20, k=30, l=40, m=50)
+        self.assertEqual("[Rectangle] (1) 1/1 - 1/1", str(r))
+
+    def test_kwargs_some_wrong_keys(self):
+        r = Rectangle(1, 1, 1, 1, 1)
+        r.update(id=100, i=2, j=3, width=5, y=6)
+        self.assertEqual("[Rectangle] (100) 1/6 - 5/1", str(r))
