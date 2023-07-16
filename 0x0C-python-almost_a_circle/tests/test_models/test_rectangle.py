@@ -354,3 +354,29 @@ class TestValidate_Y(unittest.TestCase):
     def test_negative_as_Y(self):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Rectangle(1, 2, 3, -4)
+
+class TestInitializationOrder(unittest.TestCase):
+    """Checks attributes are initialized in correct order"""
+    def test_width_before_height(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle("2", "3")
+
+    def test_width_before_X(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle([1, 2, 3], 1, "1")
+
+    def test_width_before_Y(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Rectangle(complex(10), 1, 2, -1)
+
+    def test_height_before_X(self):
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            Rectangle(1, "5", -1, 2)
+
+    def test_height_before_Y(self):
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            Rectangle(1, -2, 3, -4)
+
+    def test_X_before_Y(self):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            Rectangle(1, 2, -3, -4)
