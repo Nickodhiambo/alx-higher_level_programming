@@ -124,6 +124,14 @@ class TestValidateSize(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "width must be > 0"):
             Square(0)
 
+    def test_bytearray_size(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Square(bytearray(b'abcdefg'))
+
+    def test_memoryview_size(self):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            Square(memoryview(b'abcdefg'))
+
 
 class TestValidate_X(unittest.TestCase):
     """Checks if inputted x is of correct type and value"""
@@ -183,6 +191,18 @@ class TestValidate_X(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             Square(1, -3)
 
+    def test_bytes_x(self):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            Square(1, b'Python')
+
+    def test_bytearray_x(self):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            Square(1, bytearray(b'abcdefg'))
+
+    def test_memoryview_x(self):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+            Square(1, memoryview(b'abcedfg'))
+
 
 class TestValidate_Y(unittest.TestCase):
     """Checks if inputted y is of correct type and value"""
@@ -241,6 +261,18 @@ class TestValidate_Y(unittest.TestCase):
     def test_negative_as_Y(self):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Square(1, 2, -4)
+
+    def test_bytes_y(self):
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Square(1, 3, b'Python')
+
+    def test_bytearray_y(self):
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Square(1, 3, bytearray(b'abcdefg'))
+
+    def test_memoryview_y(self):
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            Square(1, 3, memoryview(b'abcedfg'))
 
 
 class TestInitializationOrder(unittest.TestCase):
