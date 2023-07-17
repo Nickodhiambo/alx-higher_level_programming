@@ -240,3 +240,37 @@ class TestValidate_Y(unittest.TestCase):
     def test_negative_as_Y(self):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Square(1, 2, -4)
+
+class TestInitializationOrder(unittest.TestCase):
+    """Tests the order of initialization of square attributes"""
+    def size_then_x(self):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Square(0, "x")
+
+    def size_then_y(self):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+            Square(-1, "y")
+
+    def x_then_y(self):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            Square(2, -3, "y")
+
+class TestArea(unittest.TestCase):
+    """Tests various computation options for area of square"""
+    def test_small_dimensions(self):
+        sq = Square(1)
+        self.assertEqual(1, sq.area())
+
+    def test_large_dimensions(self):
+        sq = Square(1000000)
+        self.assertEqual(1000000000000, sq.area())
+
+    def test_changed_attributes(self):
+        sq = Square(10, 2, 3, 98)
+        sq.size = 100
+        self.assertEqual(10000, sq.area())
+
+    def test_extra_arg_to_area(self):
+        sq = Square(10, 20, 30, 40)
+        with self.assertRaises(TypeError):
+            sq.area(50)
