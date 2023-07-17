@@ -86,7 +86,7 @@ class TestValidateSize(unittest.TestCase):
 
     def test_dict_as_size(self):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
-            Square({"a":1, "b":2})
+            Square({"a": 1, "b": 2})
 
     def test_boolean_as_size(self):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
@@ -145,7 +145,7 @@ class TestValidate_X(unittest.TestCase):
 
     def test_dict_as_X(self):
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
-            Square(1, {"a":1, "b":2})
+            Square(1, {"a": 1, "b": 2})
 
     def test_boolean_as_X(self):
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
@@ -183,6 +183,7 @@ class TestValidate_X(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             Square(1, -3)
 
+
 class TestValidate_Y(unittest.TestCase):
     """Checks if inputted y is of correct type and value"""
     def test_none_as_Y(self):
@@ -203,7 +204,7 @@ class TestValidate_Y(unittest.TestCase):
 
     def test_dict_as_Y(self):
         with self.assertRaisesRegex(TypeError, "y must be an integer"):
-            Square(1, 2, {"a":1, "b":2})
+            Square(1, 2, {"a": 1, "b": 2})
 
     def test_boolean_as_Y(self):
         with self.assertRaisesRegex(TypeError, "y must be an integer"):
@@ -241,6 +242,7 @@ class TestValidate_Y(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Square(1, 2, -4)
 
+
 class TestInitializationOrder(unittest.TestCase):
     """Tests the order of initialization of square attributes"""
     def size_then_x(self):
@@ -254,6 +256,7 @@ class TestInitializationOrder(unittest.TestCase):
     def x_then_y(self):
         with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             Square(2, -3, "y")
+
 
 class TestArea(unittest.TestCase):
     """Tests various computation options for area of square"""
@@ -274,6 +277,7 @@ class TestArea(unittest.TestCase):
         sq = Square(10, 20, 30, 40)
         with self.assertRaises(TypeError):
             sq.area(50)
+
 
 class TestUpdateArgs(unittest.TestCase):
     """Tests the args parameter of the update method of square class"""
@@ -383,6 +387,7 @@ class TestUpdateArgs(unittest.TestCase):
         sq.update(1, 89)
         self.assertEqual(89, sq.height)
 
+
 class TestUpdateKwargs(unittest.TestCase):
     """unittests for the kwargs parameter of Square update method"""
     def test_one_kwarg(self):
@@ -480,6 +485,7 @@ class TestUpdateKwargs(unittest.TestCase):
         sq = Square(1, 1, 1, 1)
         sq.update(size=89)
         self.assertEqual(89, sq.height)
+
 
 class TestDictRepresentation(unittest.TestCase):
     """Unittests for Square's dictionary representation method"""

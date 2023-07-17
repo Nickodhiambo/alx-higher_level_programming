@@ -92,6 +92,7 @@ class TestRectangleInstantiation(unittest.TestCase):
         rect.y = 5
         self.assertEqual(5, rect.y)
 
+
 class TestArea(unittest.TestCase):
     """Area unittests"""
     def test_small_dimensions(self):
@@ -113,6 +114,7 @@ class TestArea(unittest.TestCase):
         with self.assertRaises(TypeError):
             r.area(1)
 
+
 class TestValidateWidth(unittest.TestCase):
     """Checks if width input is of correct type and value"""
     def test_none_as_width(self):
@@ -133,7 +135,7 @@ class TestValidateWidth(unittest.TestCase):
 
     def test_dict_as_width(self):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
-            Rectangle({"a":1, "b":2}, 1)
+            Rectangle({"a": 1, "b": 2}, 1)
 
     def test_boolean_as_width(self):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
@@ -196,7 +198,7 @@ class TestValidateHeight(unittest.TestCase):
 
     def test_dict_as_height(self):
         with self.assertRaisesRegex(TypeError, "height must be an integer"):
-            Rectangle(1, {"a":1, "b":2})
+            Rectangle(1, {"a": 1, "b": 2})
 
     def test_boolean_as_height(self):
         with self.assertRaisesRegex(TypeError, "height must be an integer"):
@@ -238,6 +240,7 @@ class TestValidateHeight(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "height must be > 0"):
             Rectangle(1, -1)
 
+
 class TestValidate_X(unittest.TestCase):
     """Checks if inputted x is of correct type and value"""
     def test_none_as_X(self):
@@ -258,7 +261,7 @@ class TestValidate_X(unittest.TestCase):
 
     def test_dict_as_X(self):
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
-            Rectangle(1, 2, {"a":1, "b":2})
+            Rectangle(1, 2, {"a": 1, "b": 2})
 
     def test_boolean_as_X(self):
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
@@ -317,7 +320,7 @@ class TestValidate_Y(unittest.TestCase):
 
     def test_dict_as_Y(self):
         with self.assertRaisesRegex(TypeError, "y must be an integer"):
-            Rectangle(1, 2, 3, {"a":1, "b":2})
+            Rectangle(1, 2, 3, {"a": 1, "b": 2})
 
     def test_boolean_as_Y(self):
         with self.assertRaisesRegex(TypeError, "y must be an integer"):
@@ -355,6 +358,7 @@ class TestValidate_Y(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Rectangle(1, 2, 3, -4)
 
+
 class TestInitializationOrder(unittest.TestCase):
     """Checks attributes are initialized in correct order"""
     def test_width_before_height(self):
@@ -380,6 +384,7 @@ class TestInitializationOrder(unittest.TestCase):
     def test_X_before_Y(self):
         with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             Rectangle(1, 2, -3, -4)
+
 
 class TestUpdateArgs(unittest.TestCase):
     """Tests the args parameter of the update method of rectangle class"""
@@ -514,6 +519,7 @@ class TestUpdateArgs(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, "x must be an integer"):
             r.update(98, 1, 2, "x", "y")
 
+
 class TestUpdateKwargs(unittest.TestCase):
     """unittests for the kwargs parameter of rect update method"""
     def test_one_kwarg(self):
@@ -622,6 +628,7 @@ class TestUpdateKwargs(unittest.TestCase):
         r.update(id=100, i=2, j=3, width=5, y=6)
         self.assertEqual("[Rectangle] (100) 1/6 - 5/1", str(r))
 
+
 class TestDictRep(unittest.TestCase):
     """unittests for rect method that returns dict representation of rect"""
     def test_correct_dict_output(self):
@@ -630,6 +637,6 @@ class TestDictRep(unittest.TestCase):
         self.assertDictEqual(dict_output, rect.to_dictionary())
 
     def test_pass_arg_to_method(self):
-       rect = Rectangle(1, 2, 3, 4, 5)
-       with self.assertRaises(TypeError):
+        rect = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaises(TypeError):
             rect.to_dictionary(10)
