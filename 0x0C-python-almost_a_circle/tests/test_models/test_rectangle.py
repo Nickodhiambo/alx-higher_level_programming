@@ -621,3 +621,15 @@ class TestUpdateKwargs(unittest.TestCase):
         r = Rectangle(1, 1, 1, 1, 1)
         r.update(id=100, i=2, j=3, width=5, y=6)
         self.assertEqual("[Rectangle] (100) 1/6 - 5/1", str(r))
+
+class TestDictRep(unittest.TestCase):
+    """unittests for rect method that returns dict representation of rect"""
+    def test_correct_dict_output(self):
+        rect = Rectangle(1, 2, 3, 4, 5)
+        dict_output = {"id": 5, "width": 1, "height": 2, "x": 3, "y": 4}
+        self.assertDictEqual(dict_output, rect.to_dictionary())
+
+    def test_pass_arg_to_method(self):
+       rect = Rectangle(1, 2, 3, 4, 5)
+       with self.assertRaises(TypeError):
+            rect.to_dictionary(10)
