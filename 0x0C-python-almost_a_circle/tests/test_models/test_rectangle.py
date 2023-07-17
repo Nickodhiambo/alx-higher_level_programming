@@ -612,7 +612,7 @@ class TestUpdateKwargs(unittest.TestCase):
         r.update(89, 5, height=4, x=2)
         self.assertEqual("[Rectangle] (89) 1/1 - 5/1", str(r))
 
-    def test_kwargs_wrong_keys(self):
+    def test_kwargs_all_wrong_keys(self):
         r = Rectangle(1, 1, 1, 1, 1)
         r.update(i=10, j=20, k=30, l=40, m=50)
         self.assertEqual("[Rectangle] (1) 1/1 - 1/1", str(r))
