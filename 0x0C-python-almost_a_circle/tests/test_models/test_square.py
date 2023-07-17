@@ -530,3 +530,6 @@ class TestDictRepresentation(unittest.TestCase):
         sq = Square(1, 2, 3, 4)
         with self.assertRaises(TypeError):
             sq.to_dictionary(1)
+
+if __name__ == "__main__":
+    unittest.main()

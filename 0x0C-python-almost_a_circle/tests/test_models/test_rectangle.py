@@ -689,3 +689,6 @@ class TestDictRep(unittest.TestCase):
         rect = Rectangle(1, 2, 3, 4, 5)
         with self.assertRaises(TypeError):
             rect.to_dictionary(1)
+
+if __name__ == "__main__":
+    unittest.main()
