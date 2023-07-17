@@ -480,3 +480,15 @@ class TestUpdateKwargs(unittest.TestCase):
         sq = Square(1, 1, 1, 1)
         sq.update(size=89)
         self.assertEqual(89, sq.height)
+
+class TestDictRepresentation(unittest.TestCase):
+    """Unittests for Square's dictionary representation method"""
+    def test_correct_dict_output(self):
+        sq = Square(1, 2, 3, 4)
+        dict_output = {"id": 4, "size": 1, "x": 2, "y": 3}
+        self.assertEqual(dict_output, sq.to_dictionary())
+
+    def test_args_to_dict_method(self):
+        sq = Square(1, 2, 3, 4)
+        with self.assertRaises(TypeError):
+            sq.to_dictionary(1)
