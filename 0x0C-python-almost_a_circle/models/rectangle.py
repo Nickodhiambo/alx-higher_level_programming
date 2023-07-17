@@ -82,7 +82,8 @@ class Rectangle(Base):
             print("")
 
     def __str__(self):
-        return "[Rectangle] ({}) {}/{} - {}/{}".format(self.id,
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+                                                    self.id,
                                                     self.x,
                                                     self.y,
                                                     self.width,
@@ -93,7 +94,7 @@ class Rectangle(Base):
             flag = 0
             for arg in args:
                 if flag == 0:
-                    if arg == None:
+                    if arg is None:
                         self.__init__(self.width, self.height, self.x, self.y)
                     else:
                         self.id = arg
@@ -106,11 +107,11 @@ class Rectangle(Base):
                 elif flag == 4:
                     self.y = arg
                 flag += 1
-        
+
         elif kwargs and len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == "id":
-                    if value == None:
+                    if value is None:
                         self.__init__(self.width, self.height, self.x, self.y)
                     else:
                         self.id = value
@@ -122,3 +123,13 @@ class Rectangle(Base):
                     self.x = value
                 elif key == "y":
                     self.y = value
+
+    def to_dictionary(self):
+        """Returns dictionary representation of the Rectangle"""
+        return {
+                "id": self.id,
+                "width": self.width,
+                "height": self.height,
+                "x": self.x,
+                "y": self.y
+                }
