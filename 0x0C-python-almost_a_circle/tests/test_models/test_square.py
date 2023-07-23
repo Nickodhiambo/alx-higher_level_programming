@@ -4,7 +4,8 @@ from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
 import unittest
-
+import sys
+import io
 
 class TestSquareInstantiations(unittest.TestCase):
     """Tests various instantiations of square model"""
@@ -531,5 +532,77 @@ class TestDictRepresentation(unittest.TestCase):
         with self.assertRaises(TypeError):
             sq.to_dictionary(1)
 
-if __name__ == "__main__":
-    unittest.main()
+class Test_Str_Disp_Methods(unittest.TestCase):
+    """Unittests for __str__ and display methods of Square class."""
+
+    @staticmethod
+    def print_to_stdout(sq, cmd):
+        
+        disp = io.StringIO()
+        sys.stdout = disp
+        if cmd == "print":
+            print(sq)
+        else:
+            sq.display()
+        sys.stdout = sys.__stdout__
+        return disp
+
+    def test_print_size(self):
+        sq = Square(10)
+        disp = Test_Str_Disp_Methods.print_to_stdout(sq, "print")
+        string = "[Square] ({}) 0/0 - 10\n".format(sq.id)
+        self.assertEqual(string, disp.getvalue())
+
+    def test_print_size_x(self):
+        sq = Square(10, 20)
+        string = "[Square] ({}) 20/0 - 10".format(sq.id)
+        self.assertEqual(string, sq.__str__())
+
+    def test_print_size_x_y(self):
+        sq = Square(10, 20, 30)
+        string = "[Square] ({}) 20/30 - 10".format(sq.id)
+        self.assertEqual(string, str(sq))
+
+    def test_print_size_x_y_id(self):
+        sq = Square(20, 30, 40, 50)
+        self.assertEqual("[Square] (50) 30/40 - 20", str(sq))
+
+    def test_print_new_attributes(self):
+        sq = Square(1, 2, 3, 4)
+        sq.size = 5
+        sq.x = 7
+        sq.y = 9
+        self.assertEqual("[Square] (4) 7/9 - 5", str(sq))
+
+    def test_print_one_arg_passed(self):
+        sq = Square(1, 2, 3, 4)
+        with self.assertRaises(TypeError):
+            sq.__str__(1)
+
+    # Test display method
+    def test_display_size(self):
+        sq = Square(4, 0, 0, 1)
+        disp = Test_Str_Disp_Methods.print_to_stdout(sq, "display")
+        self.assertEqual("####\n####\n####\n####\n", disp.getvalue())
+
+    def test_display_size_x(self):
+        sq = Square(4, 1, 0, 1)
+        disp = Test_Str_Disp_Methods.print_to_stdout(sq, "display")
+        self.assertEqual(" ####\n ####\n ####\n ####\n", disp.getvalue())
+
+    def test_display_size_y(self):
+        sq = Square(3, 0, 2, 1)
+        disp = Test_Str_Disp_Methods.print_to_stdout(sq, "display")
+        display = "###\n###\n###\n"
+        self.assertEqual(display, disp.getvalue())
+
+    def test_display_size_x_y(self):
+        sq = Square(2, 3, 2, 98)
+        disp = Test_Str_Disp_Methods.print_to_stdout(sq, "display")
+        display = "   ##\n   ##\n"
+        self.assertEqual(display, disp.getvalue())
+
+    def test_display_one_arg_passed(self):
+        sq = Square(1, 2, 3, 4)
+        with self.assertRaises(TypeError):
+            sq.display(1)

@@ -690,5 +690,78 @@ class TestDictRep(unittest.TestCase):
         with self.assertRaises(TypeError):
             rect.to_dictionary(1)
 
-if __name__ == "__main__":
-    unittest.main()
+class Test_Str_Disp_Methods:
+    """Unittests for str and display methods of rectangle class"""
+
+    @staticmethod
+    def print_to_stdout(rect, cmd):
+        disp = io.StringIO()
+
+        if cmd == "print":
+            print(rect)
+        else:
+            rect.display()
+        sys.stdout = sys.__stdout__
+        return disp
+    
+    # Test __str__ method
+    def test_print_width_height(self):
+        r = Rectangle(1, 2)
+        disp = Test_Str_Disp_Methods.print_to_stdout_stdout(r, "print")
+        fmt = "[Rectangle] ({}) 0/0 - 4/6\n".format(r.id)
+        self.assertEqual(fmt, disp.getvalue())
+
+    def test_print_width_height_x(self):
+        r = Rectangle(1, 2, 3)
+        fmt = "[Rectangle] ({}) 3/0 - 1/2".format(r.id)
+        self.assertEqual(fmt, r.__str__())
+
+    def test_print_width_height_x_y(self):
+        r = Rectangle(1, 2, 3, 4)
+        fmt = "[Rectangle] ({}) 3/4 - 1/2".format(r.id)
+        self.assertEqual(fmt, str(r))
+
+    def test_print_width_height_x_y_id(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        self.assertEqual("[Rectangle] (5) 4/5 - 1/2", str(r))
+
+    def test_print_with_changed_attributes(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        r.width = 6
+        r.height = 7
+        r.x = 8
+        r.y = 9
+        self.assertEqual("[Rectangle] (4) 8/9 - 6/7", str(r))
+
+    def test_str_method_one_arg_passed(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaises(TypeError):
+            r.__str__(10)
+
+    # Test display method
+    def test_disp_width_height(self):
+        rect = Rectangle(1, 2, 0, 0, 0)
+        disp = Test_Str_Disp_Methods.print_to_stdout(rect, "display")
+        self.assertEqual("#\n#\n", disp.getvalue())
+
+    def test_display_width_height_x(self):
+        r = Rectangle(1, 2, 1, 0, 0)
+        disp = Test_Str_Disp_Methods.print_to_stdout(r, "display")
+        self.assertEqual(" #\n #\n", disp.getvalue())
+
+    def test_display_width_height_y(self):
+        r = Rectangle(2, 3, 0, 1, 1)
+        disp = Test_Str_Disp_Methods.print_to_stdout(r, "display")
+        display = "\n##\n##\n##"
+        self.assertEqual(display, disp.getvalue())
+
+    def test_display_width_height_x_y(self):
+        r = Rectangle(2, 3, 2, 2, 1)
+        disp = Test_Str_Disp_Methods.print_to_stdout(r, "display")
+        display = "\n\n  ##\n  ##\n  ##\n"
+        self.assertEqual(display, disp.getvalue())
+
+    def test_display_one_arg(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaises(TypeError):
+            r.display(10)
