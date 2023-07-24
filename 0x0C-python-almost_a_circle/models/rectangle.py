@@ -69,9 +69,11 @@ class Rectangle(Base):
         self.__y = value
 
     def area(self):
+        """Returns the area of a rectangle"""
         return (self.width * self.height)
 
     def display(self):
+        """Prints a rectangle representation to stdout using "#" symbol"""
         if self.height == 0 and self.width == 0:
             print("")
             return
@@ -82,6 +84,7 @@ class Rectangle(Base):
             print("")
 
     def __str__(self):
+        """Returns string representation of a rectangle"""
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
                                                     self.id,
                                                     self.x,
@@ -90,6 +93,7 @@ class Rectangle(Base):
                                                     self.height)
 
     def update(self, *args, **kwargs):
+        """Assigns positional and keyword arguments to rectangle instances"""
         if args and len(args) != 0:
             flag = 0
             for arg in args:
