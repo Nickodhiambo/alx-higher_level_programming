@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/node
 const squarePrev = require('./5-square');
 
 module.exports = class Square extends squarePrev {
